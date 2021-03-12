@@ -12,26 +12,26 @@ class LoginController extends Controller
         $this->middleware(['guest']);
     }
 
-    
+
    public function index(){
-      
+
        return view('auth.login');
    }
 
    public function store(Request $request){
-       
+
         // Validation
        $this->validate($request, [
         'email' => 'required|email|',
         'password' => 'required|',
-        
+
         ]);
 
         if(!auth()->attempt($request->only('email', 'password'), $request->remember)) {
 
             return back()->with('status','Invalid Login details');
 
-        }    
+        }
         return redirect()->route('dashboard');
     }
 }
